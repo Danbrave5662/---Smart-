@@ -1,5 +1,8 @@
 ﻿using System;
 
+namespace TrafficMonitoringSystem;
+
+
 public class RoadLane
 {
     public int LaneNumber { get; set; }

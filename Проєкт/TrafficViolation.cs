@@ -1,5 +1,8 @@
 ﻿using System;
 
+namespace TrafficMonitoringSystem;
+
+
 public class TrafficViolation
 {
     // Агрегація: порушення містить посилання на конкретну машину

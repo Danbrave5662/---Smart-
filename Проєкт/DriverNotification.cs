@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace TrafficMonitoringSystem;
+
 public class DriverNotification
 {
     public string MessageText { get; set; }

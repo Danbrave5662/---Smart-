@@ -1,5 +1,8 @@
 ﻿using System;
 
+namespace TrafficMonitoringSystem;
+
+
 class Program
 {
     static void Main(string[] args)

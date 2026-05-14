@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+namespace TrafficMonitoringSystem;
+
+
 public class GPSRoute
 {
     public double TotalDistanceKm { get; set; }

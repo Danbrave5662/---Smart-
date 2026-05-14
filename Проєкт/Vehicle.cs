@@ -1,5 +1,8 @@
 ﻿using System;
 
+namespace TrafficMonitoringSystem;
+
+
 public class Vehicle
 {
     public string LicensePlate { get; set; }

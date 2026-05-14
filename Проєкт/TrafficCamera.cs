@@ -1,5 +1,8 @@
 ﻿using System;
 
+namespace TrafficMonitoringSystem;
+
+
 public class TrafficCamera
 {
     public int CameraId { get; set; }
