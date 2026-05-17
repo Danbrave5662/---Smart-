@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO; // Підключаємо бібліотеку для роботи з файлами
 using System.Text;
+using System.Collections.Generic; // Для роботи зі списками
 
 namespace TrafficMonitoringSystem;
 
@@ -7,30 +9,50 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Налаштування кодування для коректного виводу кирилиці
         Console.OutputEncoding = Encoding.UTF8;
 
-        Console.WriteLine("ПІБ студента: Таніч Данило");
-        Console.WriteLine("Курс: 1 курс, Група: ІПЗ-12");
+        Console.WriteLine("ПІБ студента: Таніч Данило | Група: ІПЗ-12");
         Console.WriteLine("Варіант завдання: 11");
-        Console.WriteLine("Версія 2 (Конструктори та аксесори)");
-        Console.WriteLine("Старт роботи програми\n");
+        Console.WriteLine("Версія 2.1 (Інкапсуляція та File I/O)\n");
 
-        // ДЕМОНСТРАЦІЯ РОБОТИ:
+        List<Vehicle> loadedVehicles = new List<Vehicle>();
+        string filePath = "vehicles.txt";
 
-        //  Використання конструктора за замовчуванням
-        Vehicle carDefault = new Vehicle();
-        Console.WriteLine($"Авто 1 (Default): Номер - {carDefault.LicensePlate}, Швидкість - {carDefault.CurrentSpeed}");
+        // Зчитування з файлу
+        if (File.Exists(filePath))
+        {
+            Console.WriteLine($"[Система] Зчитування даних з файлу {filePath}...");
+            string[] lines = File.ReadAllLines(filePath);
 
-        // Конструктор з параметрами + перевірка аксесора (передаємо від'ємну швидкість -30)
-        Vehicle carWithParams = new Vehicle("AA0001BB", "Вантажний", -30.0);
-        Console.WriteLine($"Авто 2 (Params): Номер - {carWithParams.LicensePlate}, Швидкість - {carWithParams.CurrentSpeed} (корекція аксесором)");
+            foreach (string line in lines)
+            {
+                // Розбиваємо рядок на частини: Номер;Тип;Швидкість
+                string[] data = line.Split(';');
+                if (data.Length == 3)
+                {
+                    string plate = data[0];
+                    string type = data[1];
+                    double speed = Convert.ToDouble(data[2]);
 
-        // Конструктор копіювання
-        Vehicle carCopy = new Vehicle(carWithParams);
-        Console.WriteLine($"Авто 3 (Copy): Номер - {carCopy.LicensePlate}, Швидкість - {carCopy.CurrentSpeed}");
+                    // Створюємо об'єкт і додаємо в список
+                    Vehicle newCar = new Vehicle(plate, type, speed);
+                    loadedVehicles.Add(newCar);
+                }
+            }
+            Console.WriteLine("[Система] Дані успішно завантажено!\n");
+        }
+        else
+        {
+            Console.WriteLine("[Помилка] Файл з даними не знайдено!");
+        }
 
-        Console.WriteLine("\nКаркас Версії 2 готовий. Всі типи конструкторів реалізовані.");
+        // Демонстрація роботи
+        Console.WriteLine("--- Список зареєстрованих автомобілів ---");
+        foreach (var car in loadedVehicles)
+        {
+            // Звертаємось до об'єктів ззовні — тому використовуємо властивості (з великої літери)
+            Console.WriteLine($"Авто: Номер - {car.LicensePlate}, Тип - {car.VehicleType}, Швидкість - {car.CurrentSpeed}");
+        }
 
         Console.WriteLine("\nФініш роботи програми");
         Console.ReadLine();
