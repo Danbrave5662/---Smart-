@@ -3,35 +3,54 @@ using System.Collections.Generic;
 
 namespace TrafficMonitoringSystem;
 
-/// Головний клас системи моніторингу міста.
 public class MonitoringSystem
 {
-    public string CityName { get; set; } // Назва міста
-    public List<RoadLane> Lanes { get; set; } // Список смуг (композиція)
-    public PoliceDatabase DatabaseConnection { get; set; } // Зв'язок з БД (асоціація)
+    private string _cityName;
+    private List<RoadLane> _lanes;
+    private PoliceDatabase _databaseConnection;
+
+    public string CityName
+    {
+        get { return _cityName; }
+        set { _cityName = value; }
+    }
+
+    public List<RoadLane> Lanes
+    {
+        get { return _lanes; }
+        set { _lanes = value; }
+    }
+
+    public PoliceDatabase DatabaseConnection
+    {
+        get { return _databaseConnection; }
+        set { _databaseConnection = value; }
+    }
 
     public MonitoringSystem()
     {
-        CityName = "Невідоме місто";
-        Lanes = new List<RoadLane>();
+        _cityName = "Невідоме місто";
+        _lanes = new List<RoadLane>();
+        _databaseConnection = null;
     }
 
     public MonitoringSystem(string cityName, PoliceDatabase dbConnection)
     {
-        CityName = cityName;
-        Lanes = new List<RoadLane>();
-        DatabaseConnection = dbConnection;
+        _cityName = cityName;
+        _lanes = new List<RoadLane>();
+        _databaseConnection = dbConnection;
     }
 
     public MonitoringSystem(MonitoringSystem other)
     {
-        this.CityName = other.CityName;
-        this.DatabaseConnection = other.DatabaseConnection;
-        this.Lanes = new List<RoadLane>();
-        // Глибоке копіювання списку смуг
-        foreach (var lane in other.Lanes)
+        _cityName = other._cityName;
+        _databaseConnection = other._databaseConnection;
+        _lanes = new List<RoadLane>();
+
+        // Глибоке копіювання списку через приватні поля
+        foreach (var lane in other._lanes)
         {
-            this.Lanes.Add(new RoadLane(lane));
+            _lanes.Add(new RoadLane(lane));
         }
     }
 

@@ -2,32 +2,49 @@
 
 namespace TrafficMonitoringSystem;
 
-/// Система сповіщення водіїв про стан доріг.
 public class DriverNotification
 {
-    public string MessageText { get; set; } // Текст повідомлення
-    public string AlertType { get; set; }   // Тип (Інфо, Небезпека тощо)
-    public DateTime SentAt { get; set; }    // Час відправлення
+    private string _messageText;
+    private string _alertType;
+    private DateTime _sentAt;
+
+    public string MessageText
+    {
+        get { return _messageText; }
+        set { _messageText = value; }
+    }
+
+    public string AlertType
+    {
+        get { return _alertType; }
+        set { _alertType = value; }
+    }
+
+    public DateTime SentAt
+    {
+        get { return _sentAt; }
+        set { _sentAt = value; }
+    }
 
     public DriverNotification()
     {
-        MessageText = "Повідомлення відсутнє";
-        AlertType = "Інфо";
-        SentAt = DateTime.Now;
+        _messageText = "Повідомлення відсутнє";
+        _alertType = "Інфо";
+        _sentAt = DateTime.Now;
     }
 
     public DriverNotification(string messageText, string alertType)
     {
-        MessageText = messageText;
-        AlertType = alertType;
-        SentAt = DateTime.Now;
+        _messageText = messageText;
+        _alertType = alertType;
+        _sentAt = DateTime.Now;
     }
 
     public DriverNotification(DriverNotification other)
     {
-        this.MessageText = other.MessageText;
-        this.AlertType = other.AlertType;
-        this.SentAt = other.SentAt;
+        _messageText = other._messageText;
+        _alertType = other._alertType;
+        _sentAt = other._sentAt;
     }
 
     public void SendToVehicle(Vehicle targetVehicle) { }

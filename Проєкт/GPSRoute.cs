@@ -3,28 +3,39 @@ using System.Collections.Generic;
 
 namespace TrafficMonitoringSystem;
 
-/// Клас для керування маршрутними даними об'єкта.
 public class GPSRoute
 {
-    public double TotalDistanceKm { get; set; } // Загальна дистанція
-    public List<string> Waypoints { get; set; }  // Точки маршруту
+    private double _totalDistanceKm;
+    private List<string> _waypoints;
+
+    public double TotalDistanceKm
+    {
+        get { return _totalDistanceKm; }
+        set { _totalDistanceKm = value; }
+    }
+
+    public List<string> Waypoints
+    {
+        get { return _waypoints; }
+        set { _waypoints = value; }
+    }
 
     public GPSRoute()
     {
-        TotalDistanceKm = 0;
-        Waypoints = new List<string>();
+        _totalDistanceKm = 0;
+        _waypoints = new List<string>();
     }
 
     public GPSRoute(double distance, List<string> waypoints)
     {
-        TotalDistanceKm = distance;
-        Waypoints = new List<string>(waypoints);
+        _totalDistanceKm = distance;
+        _waypoints = new List<string>(waypoints);
     }
 
     public GPSRoute(GPSRoute other)
     {
-        this.TotalDistanceKm = other.TotalDistanceKm;
-        this.Waypoints = new List<string>(other.Waypoints);
+        _totalDistanceKm = other._totalDistanceKm;
+        _waypoints = new List<string>(other._waypoints);
     }
 
     public void CalculateStatistics() { }

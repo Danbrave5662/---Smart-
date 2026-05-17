@@ -2,35 +2,59 @@
 
 namespace TrafficMonitoringSystem;
 
-/// Клас для реєстрації порушення ПДР.
 public class TrafficViolation
 {
-    public Vehicle Offender { get; set; }    // Об'єкт машини-порушника
-    public DateTime Timestamp { get; set; }  // Час фіксації
-    public string ViolationType { get; set; } // Тип порушення
-    public string PhotoFilePath { get; set; } // Шлях до фото-доказу
+    private Vehicle _offender;
+    private DateTime _timestamp;
+    private string _violationType;
+    private string _photoFilePath;
+
+    public Vehicle Offender
+    {
+        get { return _offender; }
+        set { _offender = value; }
+    }
+
+    public DateTime Timestamp
+    {
+        get { return _timestamp; }
+        set { _timestamp = value; }
+    }
+
+    public string ViolationType
+    {
+        get { return _violationType; }
+        set { _violationType = value; }
+    }
+
+    public string PhotoFilePath
+    {
+        get { return _photoFilePath; }
+        set { _photoFilePath = value; }
+    }
 
     public TrafficViolation()
     {
-        Timestamp = DateTime.Now;
-        ViolationType = "Невизначено";
-        PhotoFilePath = "no_image.jpg";
+        _timestamp = DateTime.Now;
+        _violationType = "Невизначено";
+        _photoFilePath = "no_image.jpg";
+        _offender = null;
     }
 
     public TrafficViolation(Vehicle offender, string violationType, string photoPath)
     {
-        Offender = offender;
-        Timestamp = DateTime.Now;
-        ViolationType = violationType;
-        PhotoFilePath = photoPath;
+        _offender = offender;
+        _timestamp = DateTime.Now;
+        _violationType = violationType;
+        _photoFilePath = photoPath;
     }
 
     public TrafficViolation(TrafficViolation other)
     {
-        this.Offender = other.Offender;
-        this.Timestamp = other.Timestamp;
-        this.ViolationType = other.ViolationType;
-        this.PhotoFilePath = other.PhotoFilePath;
+        _offender = other._offender;
+        _timestamp = other._timestamp;
+        _violationType = other._violationType;
+        _photoFilePath = other._photoFilePath;
     }
 
     public void RegisterViolation() { }

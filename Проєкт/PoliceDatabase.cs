@@ -3,25 +3,32 @@ using System.Collections.Generic;
 
 namespace TrafficMonitoringSystem;
 
-/// Система зберігання даних про номери в розшуку.
 public class PoliceDatabase
 {
-    public List<string> WantedPlates { get; set; } // Список номерів у розшуку
+    // Приватне поле
+    private List<string> _wantedPlates;
+
+    // Публічна властивість
+    public List<string> WantedPlates
+    {
+        get { return _wantedPlates; }
+        set { _wantedPlates = value; }
+    }
 
     public PoliceDatabase()
     {
-        WantedPlates = new List<string>();
+        _wantedPlates = new List<string>();
     }
 
     public PoliceDatabase(List<string> initialPlates)
     {
-        // Створюємо новий список на основі переданого
-        WantedPlates = new List<string>(initialPlates);
+        _wantedPlates = new List<string>(initialPlates);
     }
 
     public PoliceDatabase(PoliceDatabase other)
     {
-        this.WantedPlates = new List<string>(other.WantedPlates);
+        // Звертаємось напряму до приватного поля іншого об'єкта
+        _wantedPlates = new List<string>(other._wantedPlates);
     }
 
     public void CheckIfWanted(string licensePlate) { }
