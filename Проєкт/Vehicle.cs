@@ -2,46 +2,64 @@
 
 namespace TrafficMonitoringSystem;
 
-/// Клас, що описує транспортний засіб.
 public class Vehicle
 {
+    // Приватні поля
+    private string _licensePlate;
+    private string _vehicleType;
     private double _currentSpeed;
+    private GPSRoute _currentRoute;
 
-    /// Поточна швидкість автомобіля. Реалізовано перевірку на від'ємне значення.
+    // Властивості
+    public string LicensePlate
+    {
+        get { return _licensePlate; }
+        set { _licensePlate = value; }
+    }
+
+    public string VehicleType
+    {
+        get { return _vehicleType; }
+        set { _vehicleType = value; }
+    }
+
     public double CurrentSpeed
     {
         get { return _currentSpeed; }
-        set { _currentSpeed = (value >= 0) ? value : 0; } // Логіка аксесора: швидкість не може бути < 0
+        set { _currentSpeed = (value >= 0) ? value : 0; } // Логіка перевірки
     }
 
-    public string LicensePlate { get; set; } // Номерний знак
-    public string VehicleType { get; set; }  // Тип (легковий, вантажний тощо)
-    public GPSRoute CurrentRoute { get; set; } // Поточний маршрут (агрегація)
+    public GPSRoute CurrentRoute
+    {
+        get { return _currentRoute; }
+        set { _currentRoute = value; }
+    }
 
-    // Конструктор за замовчуванням
+    // Конструктори
     public Vehicle()
     {
-        LicensePlate = "Невідомо";
-        VehicleType = "Легковий";
-        CurrentSpeed = 0;
+        _licensePlate = "Невідомо";
+        _vehicleType = "Легковий";
+        _currentSpeed = 0;
+        _currentRoute = null;
     }
 
-    // Конструктор з параметрами
     public Vehicle(string licensePlate, string vehicleType, double currentSpeed)
     {
-        LicensePlate = licensePlate;
-        VehicleType = vehicleType;
-        CurrentSpeed = currentSpeed;
+        _licensePlate = licensePlate;
+        _vehicleType = vehicleType;
+        // Дублюємо логіку перевірки швидкості для прямого запису в поле
+        _currentSpeed = (currentSpeed >= 0) ? currentSpeed : 0;
     }
 
-    // Конструктор копіювання
     public Vehicle(Vehicle other)
     {
-        this.LicensePlate = other.LicensePlate;
-        this.VehicleType = other.VehicleType;
-        this.CurrentSpeed = other.CurrentSpeed;
-        this.CurrentRoute = other.CurrentRoute;
+        _licensePlate = other._licensePlate;
+        _vehicleType = other._vehicleType;
+        _currentSpeed = other._currentSpeed;
+        _currentRoute = other._currentRoute;
     }
 
+    // порожній метод
     public void UpdateSpeed(double newSpeed) { }
 }

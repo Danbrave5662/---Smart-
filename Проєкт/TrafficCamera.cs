@@ -2,28 +2,39 @@
 
 namespace TrafficMonitoringSystem;
 
-/// Клас для опису камери фіксації трафіку.
 public class TrafficCamera
 {
-    public int CameraId { get; set; }      // Унікальний ID камери
-    public double SpeedLimit { get; set; } // Обмеження швидкості на ділянці
+    private int _cameraId;
+    private double _speedLimit;
+
+    public int CameraId
+    {
+        get { return _cameraId; }
+        set { _cameraId = value; }
+    }
+
+    public double SpeedLimit
+    {
+        get { return _speedLimit; }
+        set { _speedLimit = value; }
+    }
 
     public TrafficCamera()
     {
-        CameraId = 0;
-        SpeedLimit = 50.0;
+        _cameraId = 0;
+        _speedLimit = 50.0;
     }
 
     public TrafficCamera(int cameraId, double speedLimit)
     {
-        CameraId = cameraId;
-        SpeedLimit = speedLimit;
+        _cameraId = cameraId;
+        _speedLimit = speedLimit;
     }
 
     public TrafficCamera(TrafficCamera other)
     {
-        this.CameraId = other.CameraId;
-        this.SpeedLimit = other.SpeedLimit;
+        _cameraId = other._cameraId;
+        _speedLimit = other._speedLimit;
     }
 
     public void ScanVehicle(Vehicle vehicle) { }

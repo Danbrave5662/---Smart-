@@ -2,31 +2,49 @@
 
 namespace TrafficMonitoringSystem;
 
-/// Описує смугу руху на дорозі.
 public class RoadLane
 {
-    public int LaneNumber { get; set; }      // Номер смуги
-    public double AverageSpeed { get; set; } // Середня швидкість на смузі
-    public TrafficCamera InstalledCamera { get; set; } // Встановлена камера (агрегація)
+    private int _laneNumber;
+    private double _averageSpeed;
+    private TrafficCamera _installedCamera;
+
+    public int LaneNumber
+    {
+        get { return _laneNumber; }
+        set { _laneNumber = value; }
+    }
+
+    public double AverageSpeed
+    {
+        get { return _averageSpeed; }
+        set { _averageSpeed = value; }
+    }
+
+    public TrafficCamera InstalledCamera
+    {
+        get { return _installedCamera; }
+        set { _installedCamera = value; }
+    }
 
     public RoadLane()
     {
-        LaneNumber = 1;
-        AverageSpeed = 0.0;
+        _laneNumber = 1;
+        _averageSpeed = 0.0;
+        _installedCamera = null;
     }
 
     public RoadLane(int laneNumber, TrafficCamera camera)
     {
-        LaneNumber = laneNumber;
-        AverageSpeed = 0.0;
-        InstalledCamera = camera;
+        _laneNumber = laneNumber;
+        _averageSpeed = 0.0;
+        _installedCamera = camera;
     }
 
     public RoadLane(RoadLane other)
     {
-        this.LaneNumber = other.LaneNumber;
-        this.AverageSpeed = other.AverageSpeed;
-        this.InstalledCamera = other.InstalledCamera;
+        _laneNumber = other._laneNumber;
+        _averageSpeed = other._averageSpeed;
+        _installedCamera = other._installedCamera;
     }
 
     public void CalculateOccupancy() { }
