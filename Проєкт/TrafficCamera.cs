@@ -37,5 +37,19 @@ public class TrafficCamera
         _speedLimit = other._speedLimit;
     }
 
-    public void ScanVehicle(Vehicle vehicle) { }
+    // Взаємодія камери та автомобіля
+    public TrafficViolation ScanVehicle(Vehicle vehicle)
+    {
+        // Перевіряємо, чи швидкість авто більша за ліміт камери
+        if (vehicle.CurrentSpeed > _speedLimit)
+        {
+            string violationName = $"Перевищення швидкості на {vehicle.CurrentSpeed - _speedLimit} км/год";
+            string photoPath = $"cam_{_cameraId}_snap.jpg";
+
+            // Створюємо та повертаємо об'єкт порушення
+            return new TrafficViolation(vehicle, violationName, photoPath);
+        }
+
+        return null; // Порушення немає
+    }
 }

@@ -4,13 +4,14 @@ namespace TrafficMonitoringSystem;
 
 public class Vehicle
 {
-    // Приватні поля
+    // статичне поле
+    private static int _totalVehiclesRegistered = 0;
+
     private string _licensePlate;
     private string _vehicleType;
     private double _currentSpeed;
     private GPSRoute _currentRoute;
 
-    // Властивості
     public string LicensePlate
     {
         get { return _licensePlate; }
@@ -26,7 +27,7 @@ public class Vehicle
     public double CurrentSpeed
     {
         get { return _currentSpeed; }
-        set { _currentSpeed = (value >= 0) ? value : 0; } // Логіка перевірки
+        set { _currentSpeed = (value >= 0) ? value : 0; }
     }
 
     public GPSRoute CurrentRoute
@@ -35,21 +36,30 @@ public class Vehicle
         set { _currentRoute = value; }
     }
 
-    // Конструктори
+    // статичний метод
+    public static int GetTotalCount()
+    {
+        return _totalVehiclesRegistered;
+    }
+
     public Vehicle()
     {
         _licensePlate = "Невідомо";
         _vehicleType = "Легковий";
         _currentSpeed = 0;
         _currentRoute = null;
+
+        // Збільшуємо лічильник при створенні будь-якого авто
+        _totalVehiclesRegistered++;
     }
 
     public Vehicle(string licensePlate, string vehicleType, double currentSpeed)
     {
         _licensePlate = licensePlate;
         _vehicleType = vehicleType;
-        // Дублюємо логіку перевірки швидкості для прямого запису в поле
         _currentSpeed = (currentSpeed >= 0) ? currentSpeed : 0;
+
+        _totalVehiclesRegistered++;
     }
 
     public Vehicle(Vehicle other)
@@ -58,8 +68,12 @@ public class Vehicle
         _vehicleType = other._vehicleType;
         _currentSpeed = other._currentSpeed;
         _currentRoute = other._currentRoute;
+
+        _totalVehiclesRegistered++;
     }
 
-    // порожній метод
-    public void UpdateSpeed(double newSpeed) { }
+    public void UpdateSpeed(double newSpeed)
+    {
+        _currentSpeed = (newSpeed >= 0) ? newSpeed : 0;
+    }
 }
