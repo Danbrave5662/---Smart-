@@ -109,6 +109,13 @@ public class Vehicle
         return !(left == right);
     }
 
+    // Неявне перетворення об'єкта Vehicle в double (повертає швидкість автомобіля з приватного поля)
+    public static implicit operator double(Vehicle vehicle)
+    {
+        if (vehicle == null) return 0;
+        return vehicle._currentSpeed;
+    }
+
     public override bool Equals(object obj)
     {
         if (obj is Vehicle other)

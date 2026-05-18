@@ -47,10 +47,31 @@ public class MonitoringSystem
         _databaseConnection = other._databaseConnection;
         _lanes = new List<RoadLane>();
 
-        // Глибоке копіювання списку через приватні поля
         foreach (var lane in other._lanes)
         {
             _lanes.Add(new RoadLane(lane));
+        }
+    }
+
+    // індексатор
+    // Дозволяє звертатися: system[0] замість system.Lanes[0]
+    public RoadLane this[int index]
+    {
+        get
+        {
+            // Перевірка індексу на коректність перед доступом до поля
+            if (_lanes != null && index >= 0 && index < _lanes.Count)
+            {
+                return _lanes[index];
+            }
+            return null;
+        }
+        set
+        {
+            if (_lanes != null && index >= 0 && index < _lanes.Count)
+            {
+                _lanes[index] = value;
+            }
         }
     }
 
