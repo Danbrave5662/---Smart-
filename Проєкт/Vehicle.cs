@@ -4,7 +4,7 @@ namespace TrafficMonitoringSystem;
 
 public class Vehicle
 {
-    // статичне поле
+    // Статичні та зайві поля
     private static int _totalVehiclesRegistered = 0;
 
     private string _licensePlate;
@@ -12,6 +12,7 @@ public class Vehicle
     private double _currentSpeed;
     private GPSRoute _currentRoute;
 
+    // Властивості
     public string LicensePlate
     {
         get { return _licensePlate; }
@@ -36,20 +37,19 @@ public class Vehicle
         set { _currentRoute = value; }
     }
 
-    // статичний метод
+    // Статичний метод
     public static int GetTotalCount()
     {
         return _totalVehiclesRegistered;
     }
 
+    // Конструктори
     public Vehicle()
     {
         _licensePlate = "Невідомо";
         _vehicleType = "Легковий";
         _currentSpeed = 0;
         _currentRoute = null;
-
-        // Збільшуємо лічильник при створенні будь-якого авто
         _totalVehiclesRegistered++;
     }
 
@@ -58,7 +58,6 @@ public class Vehicle
         _licensePlate = licensePlate;
         _vehicleType = vehicleType;
         _currentSpeed = (currentSpeed >= 0) ? currentSpeed : 0;
-
         _totalVehiclesRegistered++;
     }
 
@@ -68,12 +67,59 @@ public class Vehicle
         _vehicleType = other._vehicleType;
         _currentSpeed = other._currentSpeed;
         _currentRoute = other._currentRoute;
-
         _totalVehiclesRegistered++;
     }
 
+    // Методи
     public void UpdateSpeed(double newSpeed)
     {
         _currentSpeed = (newSpeed >= 0) ? newSpeed : 0;
     }
-}
+
+    // Унарний оператор ++ (збільшує швидкість на 10)
+    public static Vehicle operator ++(Vehicle vehicle)
+    {
+        vehicle._currentSpeed += 10;
+        return vehicle;
+    }
+
+    // Унарний оператор -- (меншує швидкість на 10, але не нижче 0)
+    public static Vehicle operator --(Vehicle vehicle)
+    {
+        vehicle._currentSpeed -= 10;
+        if (vehicle._currentSpeed < 0)
+        {
+            vehicle._currentSpeed = 0;
+        }
+        return vehicle;
+    }
+
+    // Бінарний оператор == (порівняння за номерами)
+    public static bool operator ==(Vehicle left, Vehicle right)
+    {
+        if (ReferenceEquals(left, null) && ReferenceEquals(right, null)) return true;
+        if (ReferenceEquals(left, null) || ReferenceEquals(right, null)) return false;
+
+        return left._licensePlate == right._licensePlate;
+    }
+
+    // Бінарний operator !=
+    public static bool operator !=(Vehicle left, Vehicle right)
+    {
+        return !(left == right);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Vehicle other)
+        {
+            return this._licensePlate == other._licensePlate;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return _licensePlate != null ? _licensePlate.GetHashCode() : 0;
+    }
+} 
