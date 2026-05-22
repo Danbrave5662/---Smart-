@@ -109,6 +109,29 @@ public class Vehicle
         return !(left == right);
     }
 
+    //  Бінарний математичний оператор + (збільшення швидкості)
+    public static Vehicle operator +(Vehicle vehicle, double speedIncrease)
+    {
+        // Використовуємо наш конструктор копіювання, щоб не змінювати оригінал
+        Vehicle result = new Vehicle(vehicle);
+        result._currentSpeed += speedIncrease; // Звертаємось напряму до приватного поля!
+        return result;
+    }
+
+    // Бінарний математичний оператор - (зменшення швидкості на)
+    public static Vehicle operator -(Vehicle vehicle, double speedDecrease)
+    {
+        Vehicle result = new Vehicle(vehicle);
+        result._currentSpeed -= speedDecrease;
+
+        // Захист від від'ємної швидкості
+        if (result._currentSpeed < 0)
+        {
+            result._currentSpeed = 0;
+        }
+        return result;
+    }
+
     // Неявне перетворення об'єкта Vehicle в double (повертає швидкість автомобіля з приватного поля)
     public static implicit operator double(Vehicle vehicle)
     {
