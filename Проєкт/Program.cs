@@ -13,12 +13,12 @@ class Program
 
         Console.WriteLine("ПІБ студента: Таніч Данило | Група: ІПЗ-12");
         Console.WriteLine("Варіант завдання: 11");
-        Console.WriteLine("Версія 3.0 (Статика, Оператори, Індексатори)\n");
+        Console.WriteLine("Версія 4.0 (Методи розширення та математичні оператори)\n");
 
         List<Vehicle> loadedVehicles = new List<Vehicle>();
         string filePath = "vehicles.txt";
 
-        // Зчитування з файлу
+        // Зчитування з файлу (використанням методу розширення)
         if (File.Exists(filePath))
         {
             Console.WriteLine($"[Система] Зчитування даних з файлу {filePath}...");
@@ -33,8 +33,16 @@ class Program
                     string type = data[1];
                     double speed = Convert.ToDouble(data[2]);
 
-                    Vehicle newCar = new Vehicle(plate, type, speed);
-                    loadedVehicles.Add(newCar);
+                    // Метод розширення для рядка
+                    if (plate.IsValidLicensePlate())
+                    {
+                        Vehicle newCar = new Vehicle(plate, type, speed);
+                        loadedVehicles.Add(newCar);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"[Попередження] Пропущено авто з некоректним номером: '{plate}'");
+                    }
                 }
             }
             Console.WriteLine("[Система] Дані успішно завантажено!\n");
@@ -47,64 +55,32 @@ class Program
         Console.WriteLine("--- Список зареєстрованих автомобілів ---");
         foreach (var car in loadedVehicles)
         {
-            Console.WriteLine($"Авто: Номер - {car.LicensePlate}, Тіп - {car.VehicleType}, Швидкість - {car.CurrentSpeed}");
+            Console.WriteLine($"Авто: Номер - {car.LicensePlate}, Тип - {car.VehicleType}, Швидкість - {car.CurrentSpeed} км/год");
         }
 
-        // демонстрація функціоналу 3 версії
-        Console.WriteLine("\n=== ДЕМОНСТРАЦІЯ ВЕРСІЇ 3 ===");
+        // демонстрація функціаналу версії 4
+        Console.WriteLine("\n=== ДЕМОНСТРАЦІЯ ВЕРСІЇ 4 ===");
 
-        // Тест статичного лічильника
-        Console.WriteLine($"Загалом створено об'єктів Vehicle у пам'яті (статика): {Vehicle.GetTotalCount()}");
-
-        // Створюємо додаткові екземпляри для тестів
-        Vehicle car1 = new Vehicle("AA1111BB", "Легковий", 50);
-        Vehicle car2 = new Vehicle("AA1111BB", "Вантажний", 75);
-        Vehicle car3 = new Vehicle("BC2222CC", "Легковий", 40);
-
-        Console.WriteLine($"Кількість авто після створення тестових екземплярів: {Vehicle.GetTotalCount()}");
-
-        // Тест бінарних операторів порівняння (== та !=)
-        Console.WriteLine($"\nПорівняння car1 та car2 (номери однакові): {car1 == car2}");
-        Console.WriteLine($"Порівняння car1 та car3 (номери різні): {car1 != car3}");
-
-        // Тест унарних операторів (++ та --)
-        Console.WriteLine($"\nПочаткова швидкість car1: {car1.CurrentSpeed} км/год");
-        car1++;
-        Console.WriteLine($"Швидкість після car1++: {car1.CurrentSpeed} км/год");
-        car1--;
-        Console.WriteLine($"Швидкість після car1--: {car1.CurrentSpeed} км/год");
-
-        // Тест неявного перетворення типів (implicit operator double)
-        double speedAsDouble = car3;
-        Console.WriteLine($"\nНеявне перетворення типу Vehicle -> double (швидкість car3): {speedAsDouble}");
-
-        // Тест індексатора класу MonitoringSystem
-        PoliceDatabase db = new PoliceDatabase();
-        MonitoringSystem citySystem = new MonitoringSystem("Київ", db);
-
-        TrafficCamera cam = new TrafficCamera(101, 60.0); // Ліміт 60 км/год
-        RoadLane lane0 = new RoadLane(1, cam);
-
-        citySystem.Lanes.Add(lane0);
-
-        // Звертаємось через квадратні дужки системи
-        RoadLane selectedLane = citySystem[0];
-        if (selectedLane != null)
+        if (loadedVehicles.Count > 0)
         {
-            Console.WriteLine($"\n[Індексатор] Успішно отримано смугу руху №{selectedLane.LaneNumber} через індексатор citySystem[0]");
-        }
+            Vehicle testCar = loadedVehicles[0]; // Беремо першу машину з файлу
+            Console.WriteLine($"Обрано авто для тестів: {testCar.LicensePlate} ({testCar.CurrentSpeed} км/год)");
 
-        // Тест бізнес-логіки камери (ScanVehicle)
-        Console.WriteLine($"\nКамера №{cam.CameraId} сканує авто {car2.LicensePlate} зі швидкістю {car2.CurrentSpeed} км/год...");
-        TrafficViolation violation = cam.ScanVehicle(car2);
+            //  Демонстрація методу розширення для double 
+            double speedMs = testCar.CurrentSpeed.ToMetersPerSecond();
+            Console.WriteLine($"[Extension Method] Швидкість авто в метрах за секунду: {speedMs:F2} м/с");
 
-        if (violation != null)
-        {
-            Console.WriteLine($"[ФІКСАЦІЯ ПОРУШЕННЯ]: {violation.ViolationType}. Фото: {violation.PhotoFilePath}");
-        }
-        else
-        {
-            Console.WriteLine("Порушень швидкості не виявлено.");
+            // Демонстрація математичних операторів + та - 
+            Console.WriteLine("\n[Математичні оператори]");
+
+            Vehicle acceleratedCar = testCar + 25; // Додаємо 25 км/год
+            Console.WriteLine($"Швидкість після (car + 25): {acceleratedCar.CurrentSpeed} км/год");
+
+            Vehicle brakedCar = testCar - 40; // Віднімаємо 40 км/год
+            Console.WriteLine($"Швидкість після (car - 40): {brakedCar.CurrentSpeed} км/год");
+
+            Vehicle hardBrakedCar = testCar - 100; // Перевірка захисту від від'ємної швидкості
+            Console.WriteLine($"Екстрене гальмування (car - 100): {hardBrakedCar.CurrentSpeed} км/год");
         }
 
         Console.WriteLine("\nФініш роботи програми");
