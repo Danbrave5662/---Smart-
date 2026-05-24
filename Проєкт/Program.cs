@@ -49,12 +49,23 @@ class Program
                     // Перевірка методом розширення
                     if (plate.IsValidLicensePlate())
                     {
-                        Vehicle newCar = new Vehicle(plate, type, speed);
+                        Vehicle newCar;
+
+                        // Поліморфне створення об'єктів залежно від типу у файлі
+                        if (type.Equals("Вантажний", StringComparison.OrdinalIgnoreCase))
+                        {
+                            newCar = new Truck(plate, speed, 4.5); // 4.5 тонни
+                        }
+                        else if (type.Equals("Мотоцикл", StringComparison.OrdinalIgnoreCase))
+                        {
+                            newCar = new Motorcycle(plate, speed);
+                        }
+                        else
+                        {
+                            newCar = new PassengerCar(plate, speed);
+                        }
+
                         loadedVehicles.Add(newCar);
-                    }
-                    else
-                    {
-                        Console.WriteLine(string.Format(localized["WarningInvalidPlate"], plate));
                     }
                 }
             }
@@ -82,6 +93,12 @@ class Program
 
             double speedMs = testCar.CurrentSpeed.ToMetersPerSecond();
             Console.WriteLine(string.Format(localized["ExtensionSpeedMs"], speedMs.ToString("F2")));
+        }
+
+        Console.WriteLine("\n[Polymorphism Demo]");
+        foreach (var car in loadedVehicles)
+        {
+            Console.WriteLine(car.GetVehicleSummary());
         }
 
         Console.ReadLine();
