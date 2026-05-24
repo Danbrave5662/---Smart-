@@ -74,6 +74,4 @@ public class MonitoringSystem
             }
         }
     }
-
-    public void Shutdown() { }
 }

@@ -37,6 +37,4 @@ public class GPSRoute
         _totalDistanceKm = other._totalDistanceKm;
         _waypoints = new List<string>(other._waypoints);
     }
-
-    public void CalculateStatistics() { }
 }

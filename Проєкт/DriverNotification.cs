@@ -46,6 +46,4 @@ public class DriverNotification
         _alertType = other._alertType;
         _sentAt = other._sentAt;
     }
-
-    public void SendToVehicle(Vehicle targetVehicle) { }
 }

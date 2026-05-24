@@ -30,6 +30,4 @@ public class PoliceDatabase
         // Звертаємось напряму до приватного поля іншого об'єкта
         _wantedPlates = new List<string>(other._wantedPlates);
     }
-
-    public void CheckIfWanted(string licensePlate) { }
 }

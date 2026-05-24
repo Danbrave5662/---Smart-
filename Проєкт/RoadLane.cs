@@ -46,6 +46,4 @@ public class RoadLane
         _averageSpeed = other._averageSpeed;
         _installedCamera = other._installedCamera;
     }
-
-    public void CalculateOccupancy() { }
 }

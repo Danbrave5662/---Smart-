@@ -56,6 +56,4 @@ public class TrafficViolation
         _violationType = other._violationType;
         _photoFilePath = other._photoFilePath;
     }
-
-    public void RegisterViolation() { }
 }
