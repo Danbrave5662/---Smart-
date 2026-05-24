@@ -1,4 +1,6 @@
 ﻿{
+  "StudentInfo": "Student Name: Tanich Danylo | Group: IPZ-12",
+  "VersionInfo": "Version 6.0 (Localization: {0})\n",
   "SystemLoading": "[System] Reading data from file {0}...",
   "SystemSuccess": "[System] Data successfully loaded!\n",
   "SystemError": "[Error] Data file not found!",

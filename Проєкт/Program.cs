@@ -26,8 +26,8 @@ class Program
         string jsonText = File.ReadAllText(langFilePath);
         var localized = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonText);
 
-        Console.WriteLine("ПІБ студента: Таніч Данило | Група: ІПЗ-12");
-        Console.WriteLine($"Версія 5.0 (Localization: {currentLang.ToUpper()})\n");
+        Console.WriteLine(localized["StudentInfo"]);
+        Console.WriteLine(string.Format(localized["VersionInfo"], currentLang.ToUpper()));
 
         List<Vehicle> loadedVehicles = new List<Vehicle>();
 
