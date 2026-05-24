@@ -46,8 +46,9 @@ public class Vehicle
     // Конструктори
     public Vehicle()
     {
-        _licensePlate = "Невідомо";
-        _vehicleType = "Легковий";
+        // Використовуємо константи замість звичайних слів
+        _licensePlate = TrafficConstants.UnknownVehicle;
+        _vehicleType = TrafficConstants.DefaultVehicleType;
         _currentSpeed = 0;
         _currentRoute = null;
         _totalVehiclesRegistered++;
@@ -76,17 +77,17 @@ public class Vehicle
         _currentSpeed = (newSpeed >= 0) ? newSpeed : 0;
     }
 
-    // Унарний оператор ++ (збільшує швидкість на 10)
     public static Vehicle operator ++(Vehicle vehicle)
     {
-        vehicle._currentSpeed += 10;
+        // Використовуємо константу SpeedStep замість числа 10
+        vehicle._currentSpeed += TrafficConstants.SpeedStep;
         return vehicle;
     }
 
-    // Унарний оператор -- (меншує швидкість на 10, але не нижче 0)
     public static Vehicle operator --(Vehicle vehicle)
     {
-        vehicle._currentSpeed -= 10;
+        // Використовуємо константу SpeedStep замість числа 10
+        vehicle._currentSpeed -= TrafficConstants.SpeedStep;
         if (vehicle._currentSpeed < 0)
         {
             vehicle._currentSpeed = 0;
