@@ -30,27 +30,26 @@ class Program
         Console.WriteLine(string.Format(localized["VersionInfo"], currentLang.ToUpper()));
 
         List<Vehicle> loadedVehicles = new List<Vehicle>();
-
-        // зчитування файлів
-        try
+        
+        // Зчитування файлу
+        if (File.Exists(TrafficConstants.DefaultVehiclesFilePath))
         {
-            if (File.Exists(TrafficConstants.DefaultVehiclesFilePath))
-            {
-                Console.WriteLine(string.Format(localized["SystemLoading"], TrafficConstants.DefaultVehiclesFilePath));
-                string[] lines = File.ReadAllLines(TrafficConstants.DefaultVehiclesFilePath);
+            Console.WriteLine(string.Format(localized["SystemLoading"], TrafficConstants.DefaultVehiclesFilePath));
+            string[] lines = File.ReadAllLines(TrafficConstants.DefaultVehiclesFilePath);
 
-                foreach (string line in lines)
+            foreach (string line in lines)
+            {
+                // try-catch всередині циклу
+                try
                 {
                     string[] data = line.Split(';');
                     if (data.Length == 3)
                     {
                         string plate = data[0];
                         string type = data[1];
-
-                        // Якщо тут будуть літери замість цифр - вилетить стандартний FormatException
                         double speed = Convert.ToDouble(data[2]);
 
-                        // штучно видаляємо нашу кастомну помилку
+                        // штучно викидаємо нашу кастомну помилку
                         if (speed < 0)
                         {
                             throw new InvalidVehicleDataException("Швидкість не може бути меншою за нуль!", plate);
@@ -74,34 +73,28 @@ class Program
                         }
                     }
                 }
-                Console.WriteLine(localized["SystemSuccess"]);
+                catch (InvalidVehicleDataException ex)
+                {
+                    // Перехоплюємо нашу помилку
+                    Console.WriteLine($"\n[Custom Error] {ex.Message} Проблемне авто: {ex.InvalidPlate}");
+                }
+                catch (Exception ex)
+                {
+                    // Перехоплюємо будь-які інші помилки
+                    Console.WriteLine($"\n[System Error] Сталася непередбачувана помилка у рядку: {ex.Message}");
+                }
+                finally
+                {
+                    // Виконується для кожного рядка
+                    Console.WriteLine($"[Info] Завершено обробку рядка: {line}");
+                }
             }
-            else
-            {
-                Console.WriteLine(localized["SystemError"]);
-            }
-        }
-        catch (InvalidVehicleDataException ex)
-        {
-            // Перехоплюємо нашу помилку
-            Console.WriteLine($"\n[Custom Error] {ex.Message} Проблемне авто: {ex.InvalidPlate}");
-        }
-        catch (Exception ex)
-        {
-            // Перехоплюємо будь-які-інші помилки (наприклад, проблеми з конвертацією)
-            Console.WriteLine($"\n[System Error] Сталася непередбачувана помилка: {ex.Message}");
-        }
-        finally
-        {
-            // Цей блок виконається завжди, незалежно від того, була помилка чи ні
-            Console.WriteLine("[Info] Завершення блоку читання та валідації даних.\n");
-        }
 
-        // Виведення списку автомобілів
-        Console.WriteLine(localized["HeaderList"]);
-        foreach (var car in loadedVehicles)
+            Console.WriteLine("\n" + localized["SystemSuccess"]);
+        }
+        else
         {
-            Console.WriteLine(string.Format(localized["VehicleInfo"], car.LicensePlate, car.VehicleType, car.CurrentSpeed));
+            Console.WriteLine(localized["SystemError"]);
         }
 
         // Демонстрація методів розширення
