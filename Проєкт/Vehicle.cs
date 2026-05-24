@@ -110,27 +110,17 @@ public abstract class Vehicle : ITrackable
         return !(left == right);
     }
 
-    //  Бінарний математичний оператор + (збільшення швидкості)
-    public static Vehicle operator +(Vehicle vehicle, double speedIncrease)
+    public static Vehicle operator +(Vehicle vehicle, double speedToAdd)
     {
-        // Використовуємо наш конструктор копіювання, щоб не змінювати оригінал
-        Vehicle result = new Vehicle(vehicle);
-        result._currentSpeed += speedIncrease; // Звертаємось напряму до приватного поля!
-        return result;
+        vehicle._currentSpeed += speedToAdd;
+        return vehicle;
     }
 
-    // Бінарний математичний оператор - (зменшення швидкості на)
-    public static Vehicle operator -(Vehicle vehicle, double speedDecrease)
+    public static Vehicle operator -(Vehicle vehicle, double speedToSubtract)
     {
-        Vehicle result = new Vehicle(vehicle);
-        result._currentSpeed -= speedDecrease;
-
-        // Захист від від'ємної швидкості
-        if (result._currentSpeed < 0)
-        {
-            result._currentSpeed = 0;
-        }
-        return result;
+        vehicle._currentSpeed -= speedToSubtract;
+        if (vehicle._currentSpeed < 0) vehicle._currentSpeed = 0;
+        return vehicle;
     }
 
     // Неявне перетворення об'єкта Vehicle в double (повертає швидкість автомобіля з приватного поля)
