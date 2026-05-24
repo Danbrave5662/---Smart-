@@ -2,7 +2,7 @@
 
 namespace TrafficMonitoringSystem;
 
-public class Vehicle
+public abstract class Vehicle : ITrackable
 {
     // Статичні та зайві поля
     private static int _totalVehiclesRegistered = 0;
@@ -153,4 +153,6 @@ public class Vehicle
     {
         return _licensePlate != null ? _licensePlate.GetHashCode() : 0;
     }
+
+    public abstract string GetVehicleSummary();
 } 
