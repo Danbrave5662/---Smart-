@@ -67,7 +67,7 @@ public abstract class Vehicle : ITrackable
         _licensePlate = other._licensePlate;
         _vehicleType = other._vehicleType;
         _currentSpeed = other._currentSpeed;
-        _currentRoute = other._currentRoute;
+        _currentRoute = new GPSRoute(other._currentRoute);
         _totalVehiclesRegistered++;
     }
 

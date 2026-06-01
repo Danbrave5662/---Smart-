@@ -44,6 +44,6 @@ public class RoadLane
     {
         _laneNumber = other._laneNumber;
         _averageSpeed = other._averageSpeed;
-        _installedCamera = other._installedCamera;
+        _installedCamera = new TrafficCamera(other._installedCamera);
     }
 }

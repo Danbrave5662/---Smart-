@@ -44,7 +44,7 @@ public class MonitoringSystem
     public MonitoringSystem(MonitoringSystem other)
     {
         _cityName = other._cityName;
-        _databaseConnection = other._databaseConnection;
+        _databaseConnection = new PoliceDatabase(other._databaseConnection);
         _lanes = new List<RoadLane>();
 
         foreach (var lane in other._lanes)
