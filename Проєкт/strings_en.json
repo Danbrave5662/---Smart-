@@ -1,13 +1,13 @@
 ﻿{
   "StudentInfo": "Student Name: Tanich Danylo | Group: IPZ-12",
-  "VersionInfo": "Version 7.0 (Localization: {0})\n",
+  "VersionInfo": "Version 8.0 (Localization: {0})\n",
   "SystemLoading": "[System] Reading data from file {0}...",
   "SystemSuccess": "[System] Data successfully loaded!\n",
   "SystemError": "[Error] Data file not found!",
   "WarningInvalidPlate": "[Warning] Skipped vehicle with invalid plate: '{0}'",
   "HeaderList": "--- List of Registered Vehicles ---",
   "VehicleInfo": "Vehicle: Plate - {0}, Type - {1}, Speed - {2} km/h",
-  "DemoHeader": "\n=== SYSTEM DEMONSTRATION (VERSION 7.0) ===\n",
+  "DemoHeader": "\n=== SYSTEM DEMONSTRATION (VERSION 8.0) ===\n",
   "SelectedVehicle": "Selected vehicle for tests: {0} ({1} km/h)",
   "ExtensionSpeedMs": "[Extension Method] Vehicle speed in meters per second: {0} m/s"
 }
