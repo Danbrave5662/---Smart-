@@ -24,7 +24,7 @@ class Program
 
         // Зчитуємо та десеріалізуємо словник перекладів з JSON
         string jsonText = File.ReadAllText(langFilePath);
-        var localized = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonText);
+        var localized = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonText)!;
 
         Console.WriteLine(localized["StudentInfo"]);
         Console.WriteLine(string.Format(localized["VersionInfo"], currentLang.ToUpper()));
@@ -58,9 +58,9 @@ class Program
                         if (plate.IsValidLicensePlate())
                         {
                             Vehicle newCar;
-                            if (type.Equals("Вантажний", StringComparison.OrdinalIgnoreCase))
+                            if (type.Equals(TrafficConstants.TruckType, StringComparison.OrdinalIgnoreCase))
                                 newCar = new Truck(plate, speed, 4.5);
-                            else if (type.Equals("Мотоцикл", StringComparison.OrdinalIgnoreCase))
+                            else if (type.Equals(TrafficConstants.MotorcycleType, StringComparison.OrdinalIgnoreCase))
                                 newCar = new Motorcycle(plate, speed);
                             else
                                 newCar = new PassengerCar(plate, speed);

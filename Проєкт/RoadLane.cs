@@ -30,7 +30,7 @@ public class RoadLane
     {
         _laneNumber = 1;
         _averageSpeed = 0.0;
-        _installedCamera = null;
+        _installedCamera = null!;
     }
 
     public RoadLane(int laneNumber, TrafficCamera camera)

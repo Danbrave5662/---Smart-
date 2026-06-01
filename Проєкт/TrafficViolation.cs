@@ -38,7 +38,7 @@ public class TrafficViolation
         _timestamp = DateTime.Now;
         _violationType = "Невизначено";
         _photoFilePath = "no_image.jpg";
-        _offender = null;
+        _offender = null!;
     }
 
     public TrafficViolation(Vehicle offender, string violationType, string photoPath)

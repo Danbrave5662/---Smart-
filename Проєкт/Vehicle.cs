@@ -50,7 +50,7 @@ public abstract class Vehicle : ITrackable
         _licensePlate = TrafficConstants.UnknownVehicle;
         _vehicleType = TrafficConstants.DefaultVehicleType;
         _currentSpeed = 0;
-        _currentRoute = null;
+        _currentRoute = null!;
         _totalVehiclesRegistered++;
     }
 
@@ -60,6 +60,7 @@ public abstract class Vehicle : ITrackable
         _vehicleType = vehicleType;
         _currentSpeed = (currentSpeed >= 0) ? currentSpeed : 0;
         _totalVehiclesRegistered++;
+        _currentRoute = null!;
     }
 
     public Vehicle(Vehicle other)
@@ -126,11 +127,11 @@ public abstract class Vehicle : ITrackable
     // Неявне перетворення об'єкта Vehicle в double (повертає швидкість автомобіля з приватного поля)
     public static implicit operator double(Vehicle vehicle)
     {
-        if (vehicle == null) return 0;
+        if (vehicle == null!) return 0;
         return vehicle._currentSpeed;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is Vehicle other)
         {

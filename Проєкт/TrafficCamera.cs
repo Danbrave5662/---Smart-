@@ -49,6 +49,6 @@ public class TrafficCamera
             return new TrafficViolation((Vehicle)vehicle, violationName, photoPath);
         }
 
-        return null; // Порушення немає
+        return null!; // Порушення немає
     }
 }

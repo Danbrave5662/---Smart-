@@ -2,6 +2,9 @@
 
 public static class TrafficConstants
 {
+    public const string TruckType = "Вантажний";
+    public const string MotorcycleType = "Мотоцикл";
+
     // Шляхи до файлів
     public const string DefaultVehiclesFilePath = "vehicles.txt";
 

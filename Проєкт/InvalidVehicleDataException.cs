@@ -5,7 +5,7 @@ namespace TrafficMonitoringSystem;
 // Власний клас винятку для нашої системи
 public class InvalidVehicleDataException : Exception
 {
-    public string InvalidPlate { get; }
+    public string InvalidPlate { get; } = string.Empty;
 
     // Базовий конструктор
     public InvalidVehicleDataException() : base("Виявлено некоректні дані транспортного засобу.") { }
