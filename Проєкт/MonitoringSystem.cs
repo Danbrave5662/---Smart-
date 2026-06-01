@@ -18,7 +18,7 @@ public class MonitoringSystem
     public List<RoadLane> Lanes
     {
         get { return _lanes; }
-        set { _lanes = value; }
+        set { _lanes = value ?? new List<RoadLane>(); }
     }
 
     public PoliceDatabase DatabaseConnection
@@ -31,7 +31,7 @@ public class MonitoringSystem
     {
         _cityName = "Невідоме місто";
         _lanes = new List<RoadLane>();
-        _databaseConnection = null;
+        _databaseConnection = new PoliceDatabase();
     }
 
     public MonitoringSystem(string cityName, PoliceDatabase dbConnection)
@@ -64,7 +64,7 @@ public class MonitoringSystem
             {
                 return _lanes[index];
             }
-            return null;
+            throw new IndexOutOfRangeException("Невірний індекс смуги.");
         }
         set
         {

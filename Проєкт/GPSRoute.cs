@@ -17,7 +17,7 @@ public class GPSRoute
     public List<string> Waypoints
     {
         get { return _waypoints; }
-        set { _waypoints = value; }
+        set { _waypoints = value ?? new List<string>(); }
     }
 
     public GPSRoute()

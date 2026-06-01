@@ -12,7 +12,7 @@ public class PoliceDatabase
     public List<string> WantedPlates
     {
         get { return _wantedPlates; }
-        set { _wantedPlates = value; }
+        set { _wantedPlates = value ?? new List<string>(); }
     }
 
     public PoliceDatabase()
